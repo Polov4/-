@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Оля, посмотрим You?</title>
+  <style>
+    :root {
+      --bg1: #0b0b10;
+      --bg2: #15131d;
+      --card: rgba(255, 255, 255, 0.08);
+      --card-border: rgba(255, 255, 255, 0.14);
+      --text: #f7f2ff;
+      --muted: #cfc5de;
+      --accent: #ff4f7b;
+      --accent2: #8d5cff;
+      --soft: rgba(255, 79, 123, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, Arial, sans-serif;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255, 79, 123, 0.22), transparent 28%),
+        radial-gradient(circle at 80% 10%, rgba(141, 92, 255, 0.25), transparent 30%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 28px;
+      overflow: hidden;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: 760px;
+      position: relative;
+    }
+
+    .glow {
+      position: absolute;
+      inset: -80px 30px auto;
+      height: 180px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      filter: blur(70px);
+      opacity: 0.28;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .card {
+      position: relative;
+      z-index: 1;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 32px;
+      padding: 34px;
+      box-shadow: 0 28px 90px rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(18px);
+      min-height: 520px;
+      overflow: hidden;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      margin: 0 0 16px;
+      font-size: clamp(34px, 7vw, 66px);
+      line-height: 0.95;
+      letter-spacing: -0.05em;
+    }
+
+    .you {
+      color: var(--accent);
+      text-shadow: 0 0 28px rgba(255, 79, 123, 0.5);
+      white-space: nowrap;
+    }
+
+    .subtitle {
+      margin: 0 0 30px;
+      color: var(--muted);
+      font-size: clamp(18px, 3vw, 24px);
+      line-height: 1.45;
+    }
+
+    .buttons {
+      position: relative;
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      min-height: 92px;
+      align-items: flex-start;
+    }
+
+    button, .discord-link {
+      border: 0;
+      cursor: pointer;
+      min-height: 54px;
+      padding: 0 28px;
+      border-radius: 17px;
+      color: white;
+      font-size: 18px;
+      font-weight: 900;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, left 0.22s ease, top 0.22s ease;
+    }
+
+    .yes {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 14px 32px var(--soft);
+    }
+
+    .yes:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 42px var(--soft);
+    }
+
+    .no {
+      background: rgba(255, 255, 255, 0.11);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      position: relative;
+      z-index: 4;
+    }
+
+    .no.run {
+      position: fixed;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .message {
+      margin: 28px 0;
+      padding: 22px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(255, 79, 123, 0.14), rgba(141, 92, 255, 0.12));
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      font-size: 20px;
+      line-height: 1.5;
+      color: var(--text);
+      animation: show 0.45s ease both;
+    }
+
+    @keyframes show {
+      from {
+        opacity: 0;
+        transform: translateY(16px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .time-box {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 26px 0;
+      animation: show 0.55s ease both;
+    }
+
+    .mini {
+      padding: 16px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .mini span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .mini b {
+      font-size: 18px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      animation: show 0.65s ease both;
+    }
+
+    .discord-link {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 14px 32px var(--soft);
+    }
+
+    .discord {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .heart {
+      position: fixed;
+      color: rgba(255, 255, 255, 0.14);
+      font-size: 24px;
+      animation: float 9s infinite ease-in-out;
+      pointer-events: none;
+    }
+
+    .h1 { left: 8%; top: 18%; animation-delay: 0s; }
+    .h2 { right: 10%; top: 22%; animation-delay: 1.3s; }
+    .h3 { left: 14%; bottom: 14%; animation-delay: 2.2s; }
+    .h4 { right: 16%; bottom: 18%; animation-delay: 3.1s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.12; }
+      50% { transform: translateY(-22px) rotate(8deg); opacity: 0.3; }
+    }
+
+    @media (max-width: 640px) {
+      body {
+        overflow-y: auto;
+      }
+
+      .card {
+        padding: 24px;
+        border-radius: 26px;
+        min-height: 560px;
+      }
+
+      .time-box {
+        grid-template-columns: 1fr;
+      }
+
+      button, .discord-link {
+        width: 100%;
+      }
+
+      .no.run {
+        width: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="heart h1">♡</div>
+  <div class="heart h2">♡</div>
+  <div class="heart h3">♡</div>
+  <div class="heart h4">♡</div>
+
+  <main class="wrap">
+    <div class="glow"></div>
+
+    <section class="card">
+      <div class="badge">🎬 маленький запрос на ночь</div>
+
+      <div id="start">
+        <h1>Оля, посмотрим <span class="you">“You”</span> сегодня?</h1>
+        <p class="subtitle">один маленький вопросик</p>
+
+        <div class="buttons">
+          <button class="yes" id="yesBtn">да</button>
+          <button class="no" id="noBtn">нет</button>
+        </div>
+      </div>
+
+      <div id="result" class="hidden">
+        <h1>тогда вот</h1>
+
+        <div class="message">
+          Мне снился сон, но это был не сон, Будто мы смотрели недавно сериал и так и не досмотерли. Мне нравится смотреть с тобой. С тобой такая атмосфера что сложно передать, есть такие чувтсва которые не говорятся а чувсвутются и это тот случай. Даже когда мы молчим просто, ощущенеи прекрасны
+        </div>
+
+        <div class="time-box">
+          <div class="mini">
+            <span>Когда</span>
+            <b>сегодня</b>
+          </div>
+          <div class="mini">
+            <span>Время</span>
+            <b>где-то в 23:00</b>
+          </div>
+          <div class="mini">
+            <span>Сериал</span>
+            <b>You</b>
+          </div>
+        </div>
+
+        <div class="actions">
+          <!-- Для нормальной ссылки Discord нужен цифровой User ID.
+               Замени PASTE_YOUR_DISCORD_USER_ID_HERE на свой Discord ID. -->
+          <a class="discord-link" href="https://discord.com/users/PASTE_YOUR_DISCORD_USER_ID_HERE" target="_blank" rel="noopener">
+            написать мне в Discord
+          </a>
+
+          <div class="discord">мой Discord: <b>goossenock</b></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const start = document.getElementById("start");
+    const result = document.getElementById("result");
+
+    yesBtn.addEventListener("click", () => {
+      start.classList.add("hidden");
+      result.classList.remove("hidden");
+    });
+
+    function moveNoButton() {
+      noBtn.classList.add("run");
+
+      const padding = 18;
+      const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+      const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+
+      const x = Math.max(padding, Math.floor(Math.random() * maxX));
+      const y = Math.max(padding, Math.floor(Math.random() * maxY));
+
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    }
+
+    noBtn.addEventListener("mouseenter", moveNoButton);
+    noBtn.addEventListener("mousemove", moveNoButton);
+    noBtn.addEventListener("touchstart", (event) => {
+      event.preventDefault();
+      moveNoButton();
+    });
+
+    noBtn.addEventListener("click", (event) => {
+      event.preventDefault();
+      moveNoButton();
+    });
+  </script>
+</body>
+</html>

@@ -123,12 +123,12 @@
       transition: transform 0.18s ease, box-shadow 0.18s ease, left 0.16s ease, top 0.16s ease;
     }
 
-    .yes {
+    .yes, .secret-btn {
       background: linear-gradient(135deg, var(--accent), var(--accent2));
       box-shadow: 0 14px 32px var(--soft);
     }
 
-    .yes:hover {
+    .yes:hover, .secret-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 18px 42px var(--soft);
     }
@@ -157,6 +157,10 @@
       font-size: 20px;
       line-height: 1.5;
       color: var(--text);
+      animation: show 0.45s ease both;
+    }
+
+    .secret-area {
       animation: show 0.45s ease both;
     }
 
@@ -289,31 +293,35 @@
       <div id="result" class="hidden">
         <h1>Хорошо оль буду ждать! Даже если не получится то ничего страшного</h1>
 
-        <div class="message">
-          Мне будто снился сон, но это был не сон, Будто мы смотрели недавно сериал и так и не досмотерли. Мне нравится смотреть с тобой. С тобой такая атмосфера что сложно передать, есть такие чувтсва которые не говорятся а чувсвутются и это тот случай. Даже когда мы молчим просто, ощущение прекрасны
-        </div>
+        <button class="secret-btn" id="secretBtn">А что тут?</button>
 
-        <div class="time-box">
-          <div class="mini">
-            <span>Когда</span>
-            <b>сегодня</b>
+        <div id="secretArea" class="secret-area hidden">
+          <div class="message">
+            Мне будто снился сон, но это был не сон, Будто мы смотрели недавно сериал и так и не досмотерли. Мне нравится смотреть с тобой. С тобой такая атмосфера что сложно передать, есть такие чувтсва которые не говорятся а чувсвутются и это тот случай. Даже когда мы молчим просто, ощущение прекрасны
           </div>
-          <div class="mini">
-            <span>Время</span>
-            <b>где-то в 23:00</b>
-          </div>
-          <div class="mini">
-            <span>Сериал</span>
-            <b>You</b>
-          </div>
-        </div>
 
-        <div class="actions">
-          <a class="discord-link" href="https://discord.com/users/PASTE_YOUR_DISCORD_USER_ID_HERE" target="_blank" rel="noopener">
-            написать мне в Discord
-          </a>
+          <div class="time-box">
+            <div class="mini">
+              <span>Когда</span>
+              <b>сегодня</b>
+            </div>
+            <div class="mini">
+              <span>Время</span>
+              <b>где-то в 23:00</b>
+            </div>
+            <div class="mini">
+              <span>Сериал</span>
+              <b>You</b>
+            </div>
+          </div>
 
-          <div class="discord">мой Discord: <b>goossenock</b></div>
+          <div class="actions">
+            <a class="discord-link" href="https://discord.com/users/PASTE_YOUR_DISCORD_USER_ID_HERE" target="_blank" rel="noopener">
+              написать мне в Discord
+            </a>
+
+            <div class="discord">мой Discord: <b>goossenock</b></div>
+          </div>
         </div>
       </div>
     </section>
@@ -325,10 +333,17 @@
     const start = document.getElementById("start");
     const result = document.getElementById("result");
     const card = document.getElementById("card");
+    const secretBtn = document.getElementById("secretBtn");
+    const secretArea = document.getElementById("secretArea");
 
     yesBtn.addEventListener("click", () => {
       start.classList.add("hidden");
       result.classList.remove("hidden");
+    });
+
+    secretBtn.addEventListener("click", () => {
+      secretBtn.classList.add("hidden");
+      secretArea.classList.remove("hidden");
     });
 
     function moveNoButton() {

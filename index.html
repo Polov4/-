@@ -100,7 +100,6 @@
     }
 
     .buttons {
-      position: relative;
       display: flex;
       gap: 14px;
       flex-wrap: wrap;
@@ -121,7 +120,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      transition: transform 0.18s ease, box-shadow 0.18s ease, left 0.22s ease, top 0.22s ease;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, left 0.16s ease, top 0.16s ease;
     }
 
     .yes {
@@ -142,7 +141,7 @@
     }
 
     .no.run {
-      position: fixed;
+      position: absolute;
     }
 
     .hidden {
@@ -230,8 +229,14 @@
     .h4 { right: 16%; bottom: 18%; animation-delay: 3.1s; }
 
     @keyframes float {
-      0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.12; }
-      50% { transform: translateY(-22px) rotate(8deg); opacity: 0.3; }
+      0%, 100% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.12;
+      }
+      50% {
+        transform: translateY(-22px) rotate(8deg);
+        opacity: 0.3;
+      }
     }
 
     @media (max-width: 640px) {
@@ -268,7 +273,7 @@
   <main class="wrap">
     <div class="glow"></div>
 
-    <section class="card">
+    <section class="card" id="card">
       <div class="badge">🎬 маленький запрос на ночь</div>
 
       <div id="start">
@@ -285,7 +290,7 @@
         <h1>тогда вот</h1>
 
         <div class="message">
-           Хорошо оль буду ждать! Даже если не получится то ничего страшного. И мне будто снился сон, но это был не сон, Будто мы смотрели недавно сериал и так и не досмотерли. Мне нравится смотреть с тобой. С тобой такая атмосфера что сложно передать, есть такие чувтсва которые не говорятся а чувсвутются и это тот случай. Даже когда мы молчим просто, ощущение прекрасны
+          Хорошо оль буду ждать! Даже если не получится то ничего страшного. И мне будто снился сон, но это был не сон, Будто мы смотрели недавно сериал и так и не досмотерли. Мне нравится смотреть с тобой. С тобой такая атмосфера что сложно передать, есть такие чувтсва которые не говорятся а чувсвутются и это тот случай. Даже когда мы молчим просто, ощущение прекрасны
         </div>
 
         <div class="time-box">
@@ -304,8 +309,6 @@
         </div>
 
         <div class="actions">
-          <!-- Для нормальной ссылки Discord нужен цифровой User ID.
-               Замени PASTE_YOUR_DISCORD_USER_ID_HERE на свой Discord ID. -->
           <a class="discord-link" href="https://discord.com/users/PASTE_YOUR_DISCORD_USER_ID_HERE" target="_blank" rel="noopener">
             написать мне в Discord
           </a>
@@ -321,6 +324,7 @@
     const noBtn = document.getElementById("noBtn");
     const start = document.getElementById("start");
     const result = document.getElementById("result");
+    const card = document.getElementById("card");
 
     yesBtn.addEventListener("click", () => {
       start.classList.add("hidden");
@@ -331,8 +335,8 @@
       noBtn.classList.add("run");
 
       const padding = 18;
-      const maxX = window.innerWidth - noBtn.offsetWidth - padding;
-      const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+      const maxX = card.clientWidth - noBtn.offsetWidth - padding;
+      const maxY = card.clientHeight - noBtn.offsetHeight - padding;
 
       const x = Math.max(padding, Math.floor(Math.random() * maxX));
       const y = Math.max(padding, Math.floor(Math.random() * maxY));
@@ -343,6 +347,7 @@
 
     noBtn.addEventListener("mouseenter", moveNoButton);
     noBtn.addEventListener("mousemove", moveNoButton);
+
     noBtn.addEventListener("touchstart", (event) => {
       event.preventDefault();
       moveNoButton();

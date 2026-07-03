@@ -34,7 +34,8 @@
       align-items: center;
       justify-content: center;
       padding: 28px;
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
     }
 
     .wrap {
@@ -148,8 +149,41 @@
       display: none;
     }
 
+    .answer-title {
+      margin: 10px 0 22px;
+      padding: 24px;
+      border-radius: 26px;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(255, 79, 123, 0.22), transparent 35%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.22);
+      animation: show 0.45s ease both;
+    }
+
+    .answer-main {
+      font-size: clamp(34px, 6vw, 56px);
+      line-height: 0.98;
+      letter-spacing: -0.05em;
+      font-weight: 950;
+      color: var(--text);
+      text-shadow: 0 0 30px rgba(255, 255, 255, 0.12);
+    }
+
+    .answer-sub {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: clamp(18px, 3vw, 24px);
+      line-height: 1.3;
+      font-weight: 700;
+    }
+
+    .secret-btn {
+      margin-bottom: 22px;
+    }
+
     .message {
-      margin: 28px 0;
+      margin: 0 0 26px;
       padding: 22px;
       border-radius: 24px;
       background: linear-gradient(135deg, rgba(255, 79, 123, 0.14), rgba(141, 92, 255, 0.12));
@@ -244,10 +278,6 @@
     }
 
     @media (max-width: 640px) {
-      body {
-        overflow-y: auto;
-      }
-
       .card {
         padding: 24px;
         border-radius: 26px;
@@ -291,7 +321,10 @@
       </div>
 
       <div id="result" class="hidden">
-        <h1>Хорошо оль буду ждать! Даже если не получится то ничего страшного</h1>
+        <div class="answer-title">
+          <div class="answer-main">Хорошо оль буду ждать!</div>
+          <div class="answer-sub">Даже если не получится то ничего страшного</div>
+        </div>
 
         <button class="secret-btn" id="secretBtn">А что тут?</button>
 
@@ -299,29 +332,29 @@
           <div class="message">
             Мне будто снился сон, но это был не сон, Будто мы смотрели недавно сериал и так и не досмотерли. Мне нравится смотреть с тобой. С тобой такая атмосфера что сложно передать, есть такие чувтсва которые не говорятся а чувсвутются и это тот случай. Даже когда мы молчим просто, ощущение прекрасны
           </div>
+        </div>
 
-          <div class="time-box">
-            <div class="mini">
-              <span>Когда</span>
-              <b>сегодня</b>
-            </div>
-            <div class="mini">
-              <span>Время</span>
-              <b>где-то в 23:00</b>
-            </div>
-            <div class="mini">
-              <span>Сериал</span>
-              <b>You</b>
-            </div>
+        <div class="time-box">
+          <div class="mini">
+            <span>Когда</span>
+            <b>сегодня</b>
           </div>
-
-          <div class="actions">
-            <a class="discord-link" href="https://discord.com/users/PASTE_YOUR_DISCORD_USER_ID_HERE" target="_blank" rel="noopener">
-              написать мне в Discord
-            </a>
-
-            <div class="discord">мой Discord: <b>goossenock</b></div>
+          <div class="mini">
+            <span>Время</span>
+            <b>где-то в 23:00</b>
           </div>
+          <div class="mini">
+            <span>Сериал</span>
+            <b>You</b>
+          </div>
+        </div>
+
+        <div class="actions">
+          <a class="discord-link" href="https://discord.com/users/PASTE_YOUR_DISCORD_USER_ID_HERE" target="_blank" rel="noopener">
+            написать мне в Discord
+          </a>
+
+          <div class="discord">мой Discord: <b>goossenock</b></div>
         </div>
       </div>
     </section>
